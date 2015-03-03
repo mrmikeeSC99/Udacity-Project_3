@@ -8,8 +8,8 @@ Copy files to your web server.
 
 I used the simple python server for development.
 
-`cd <project_dir>`
-`python -m SimpleHTTPServer`
+``cd <project_dir>
+python -m SimpleHTTPServer``
 
 Then open your web browser to http://localhost:8000 to start the game.
 
