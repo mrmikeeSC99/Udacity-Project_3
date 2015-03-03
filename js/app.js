@@ -1,11 +1,6 @@
 
-// TODO: Convert x,y to col,row with function???
-// TODO: Tie in intersects() for collision detection
-// TODO: reset() to start over
-// TODO: gameover() detect win/loss and post alert()
-
 // http://stackoverflow.com/questions/8017541/javascript-canvas-collision-detection
-// returns true if there is any overlap
+// returns true if there is any overlap of the two defined rectangles
 // params: x,y,w,h of two rectangles
 function intersects(x1, y1, w1, h1, x2, y2, w2, h2) {
     if (w2 !== Infinity && w1 !== Infinity) {
@@ -24,8 +19,11 @@ function intersects(x1, y1, w1, h1, x2, y2, w2, h2) {
 
 function checkCollisions(){
     allEnemies.forEach(function(e, index, array){
+        // force height value to 10 to deal with transparency in images
         if (intersects(e.x, e.y, e.w, 10, player.x, player.y, player.w, 10)) {
+            // player has collided with enemy alert player
             alert("You Loose!");
+            // reset the game
             location.reload();
         }
     });
@@ -36,7 +34,6 @@ function checkCollisions(){
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
 
 
 // Enemies our player must avoid
@@ -54,6 +51,7 @@ var Enemy = function (x, y) {
     this.speed = getRandomInt(150, 600);
 }
 
+
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -67,6 +65,7 @@ Enemy.prototype.update = function(dt) {
         this.speed = getRandomInt(150, 600);
     }
 }
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -85,6 +84,7 @@ var Player = function (x, y) {
     this.h = 170;
 }
 
+
 Player.prototype.update = function(dt) {
     // col 5 row 6
     if (this.x <= 0) this.x = 0;
@@ -96,9 +96,11 @@ Player.prototype.update = function(dt) {
     if (this.y >= 400) this.y = (5 * 83);
 }
 
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
+
 
 Player.prototype.handleInput = function(k) {
     var xMoveAmount = 101;
@@ -121,7 +123,8 @@ Player.prototype.handleInput = function(k) {
     }
 }
 
-// define the enemy rows y value
+
+// define the enemy rows y values
 var row = new Array(0, 83, 166, 249, 332, 415);
 
 // Now instantiate your objects.
